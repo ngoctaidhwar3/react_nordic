@@ -1,0 +1,15 @@
+.FilterPanel .card-header {
+    padding: 0px;
+}
+
+.FilterPanel .card-body {
+    padding: 10px;
+}
+
+.FilterPanel label {
+    font-size: 14px;
+}
+
+.FilterPanel .btn-link {
+    padding: 0px 0px 0px 10px;
+}

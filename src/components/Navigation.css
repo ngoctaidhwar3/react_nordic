@@ -1,0 +1,11 @@
+.Navigation {
+
+}
+.Navigation-avatar {
+    width: 25px;
+    height: 25px;
+}
+
+.Navigation > li {
+    color: red;
+}
