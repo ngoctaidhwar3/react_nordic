@@ -16,11 +16,11 @@ function Navigation(props) {
         event.preventDefault();
         history.push('/tim-kiem?q=' + query)
     }
-    const handleLogout = (event)=>{
+    const handleLogout = (event) => {
         event.preventDefault();
         props.dispatch(logOut());
     }
-    if(!props.email) return <Redirect to='/login'/>;
+    if (!props.email) return <Redirect to='/login' />;
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark Navigation">
             <Link className="navbar-brand" to="/">
@@ -43,7 +43,7 @@ function Navigation(props) {
                             Danh mục
         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {cateSlugs.map(cate => <Link key={cate.slug} className="dropdown-item" to={cate.slug}>{cate.label}</Link>)}
+                            {cateSlugs.map(cate => <Link key={cate.slug} className="dropdown-item" to={`/${cate.slug}`}>{cate.label}</Link>)}
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#">Tất cả</a>
                         </div>

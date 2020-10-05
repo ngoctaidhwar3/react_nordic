@@ -20,7 +20,6 @@ function StarList(props) {
         for (; i <= stars; i++) {
             result.push(<StarIcon />);
         }
-        console.log(i, stars)
         if (i - 1 < stars)
             result.push(<HalfStarIcon />);
         return result;
