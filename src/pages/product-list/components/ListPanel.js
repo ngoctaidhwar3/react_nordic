@@ -1,11 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {cateSlugs} from '../../../common/constants'
 import ProductCard from '../../../components/product-card/ProductCard';
 import './ListPanel.css'
 function ListPanel({ products = [],page,searchKey}) {
-    const history = useHistory()
     const {cateSlug}=useParams()
     const findCateSlug=cateSlugs.findIndex(slug=>slug.slug===cateSlug)
     const getNextLink = ()=> {
