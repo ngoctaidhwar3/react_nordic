@@ -9,10 +9,9 @@ import queryString from 'query-string';
 import './ProductListPage.css';
 
 let title = '';
-function ProductListPage({ dispatch, products }) {
+function ProductListPage({ dispatch, products,searchKey }) {
     const { cateSlug } = useParams();
     const { q, p } = queryString.parse(window.location.search);
-    
     const handleGetProducts = useCallback(()=>{
         if (q) {
             title = q;
@@ -34,14 +33,15 @@ function ProductListPage({ dispatch, products }) {
             </div>
             <div class="col-md-10">
                 <h4>{title}({products ? products.length : 0})</h4>
-                <ListPanel products={products} page={p ? parseInt(p) : 1} />
+                <ListPanel products={products} searchKey={searchKey} page={p ? parseInt(p) : 1} />
             </div>
         </div>
     </div>)
 }
 
 const mapStateToProps = state => ({
-    products: state.products
+    products: state.products,
+    searchKey:state.searchKey
 })
 
 const mapDispatchToProps = dispatch => ({

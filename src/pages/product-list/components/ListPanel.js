@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../../../components/product-card/ProductCard';
 import './ListPanel.css'
-function ListPanel({ products = [], page = 1, handleNext }) {
+function ListPanel({ products = [],page,searchKey}) {
     const getNextLink = ()=> {
-        return window.location.pathname+`?p=${++page}`;
+        return (window.location.pathname+`?q=${searchKey}`+`&p=${++page}`);
     }
-    // tương tự làm getBackLink
     const getBackLink = ()=> {
-        return window.location.pathname+`?p=${--page}`;
+        return window.location.pathname+`?q=${searchKey}`+`&p=${--page}`;
     }
     return (
         <div className="ListPanel">

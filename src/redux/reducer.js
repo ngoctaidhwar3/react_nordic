@@ -11,7 +11,8 @@ const initialState = {
         message: '',
         msgType: 'info'
     },
-    products: undefined
+    products: undefined,
+    searchKey:undefined
 }
 
 const reducer = (state = initialState, action)=>{
@@ -38,7 +39,7 @@ const reducer = (state = initialState, action)=>{
             return {...state, cateSlug: action.cateSlug, products: action.products}
         }
         case SEARCH_PRODUCT: {
-            return {...state, products: action.products}
+            return {...state, products: action.products,searchKey:action.searchKey}
         }
         default : return state;
     }

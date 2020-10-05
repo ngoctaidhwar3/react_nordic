@@ -114,7 +114,8 @@ export const searchProducts = (query, page)=>{
                 batch(() => {
                     dispatch({
                         type: SEARCH_PRODUCT,
-                        products: json.data
+                        products: json.data,
+                        searchKey:query
                     })
                     dispatch(closeMessageModal());
                 })
