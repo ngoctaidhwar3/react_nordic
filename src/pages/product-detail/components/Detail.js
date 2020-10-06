@@ -3,12 +3,16 @@ import { useState } from 'react';
 function Detail({ product, pathName }) {
   const [imgIndex, setImgIndex] = useState(0);
   const categories=product.categories;
+  const categories_name=Object.keys(categories).filter(key=>key.includes('_name'))
   const handleChangeImg = (index) => {
     setImgIndex(index);
   }
   return (
     <Fragment>
-      {console.log(categories)}
+      {console.log(categories_name)}
+      {categories_name.map(item=>(
+        <h4>{item}</h4>
+      ))}
       <h1>Product Detail Page {pathName}</h1>
       <div className="container">
         <div className="card">
