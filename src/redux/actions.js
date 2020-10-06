@@ -11,7 +11,6 @@ export const loginSuccess = (email, name) => ({
     email,
     name
 })
-
 export const loginFail = () => ({
     type: LOGIN_FAIL
 })

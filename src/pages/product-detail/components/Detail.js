@@ -2,11 +2,13 @@ import React, { Fragment } from 'react';
 import { useState } from 'react';
 function Detail({ product, pathName }) {
   const [imgIndex, setImgIndex] = useState(0);
+  const categories=product.categories;
   const handleChangeImg = (index) => {
     setImgIndex(index);
   }
   return (
     <Fragment>
+      {console.log(categories)}
       <h1>Product Detail Page {pathName}</h1>
       <div className="container">
         <div className="card">
@@ -17,7 +19,7 @@ function Detail({ product, pathName }) {
                   <div className="tab-pane active" id="pic-1"><img src={'https://media3.scdn.vn' + product.images[imgIndex]} /></div>
                 </div>
                 <ul className="preview-thumbnail nav nav-tabs">
-                  {product.images.map((item, index) => <button type="button" onClick={() => handleChangeImg(index)}><img style={{ width: 50, height: 50 }} alt='' key={item} src={'https://media3.scdn.vn' + item} /></button>)}
+                  {product.images.map((item, index) => <button key={item} type="button" onClick={() => handleChangeImg(index)}><img style={{ width: 50, height: 50 }} alt='' key={item} src={'https://media3.scdn.vn' + item} /></button>)}
                 </ul>
               </div>
               <div className="details col-md-6">
@@ -32,7 +34,7 @@ function Detail({ product, pathName }) {
                   </div>
                   <span className="review-no">41 reviews</span>
                 </div>
-                {(product.final_price===product.price)?<h4 className="price">{product.final_price}đ</h4>:<h4 className="price">{product.final_price}đ <span>{product.price}đ</span></h4>}
+                {(product.final_price===product.price)?<h4 className="price">{Number(product.final_price).toLocaleString()}đ</h4>:<h4 className="price">{Number(product.final_price).toLocaleString()}đ <span>{Number(product.price).toLocaleString()}đ</span></h4>}
                 <p className="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
                 <h5 className="sizes">sizes:
                   <span className="size" data-toggle="tooltip" title="small">s</span>

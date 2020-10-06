@@ -13,10 +13,9 @@ function ProductDetailPage({dispatch,product}) {
   useEffect(() => {
     getProductDetails()
   }, [])
-  {console.log(product)}
   if (product) {
     return (
-      <Detail product={product} pathName={pathName}></Detail>
+      <Detail key={product.product_id} product={product} pathName={pathName}></Detail>
       )
   }
   else if (product===undefined) return (
