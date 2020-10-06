@@ -1,12 +1,12 @@
 import { batch } from "react-redux";
-import { makeCateApi, makeSearchApi } from "../common/util";
-import { CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
-import {LOGIN_API} from "../common/constants"
+import { makeCateApi, makeSearchApi,makeProductDetailApi } from "../common/util";
+import { GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
+import { LOGIN_API } from "../common/constants"
 export const loginStart = () => ({
     type: LOGIN_START
 })
 
-export const loginSuccess = (email,name) => ({
+export const loginSuccess = (email, name) => ({
     type: LOGIN_SUCCESS,
     email,
     name
@@ -33,10 +33,10 @@ export const login = (username, password) => {
                 // success
                 // { token}
                 if (json.token) {
-                   const name=json.name;
-                   dispatch(loginSuccess(username,name));
+                    const name = json.name;
+                    dispatch(loginSuccess(username, name));
                     localStorage.setItem('TOKEN', json.token)
-                    localStorage.setItem('email',username)
+                    localStorage.setItem('email', username)
                 }
                 else {
                     dispatch(loginFail());
@@ -86,14 +86,15 @@ export const getProductsByCate = (cateSlug, page) => {
 
     return dispatch => {
         dispatch(openMessageModal(true));
-        fetch(makeCateApi(cateSlug,page))
+        fetch(makeCateApi(cateSlug, page))
             .then(res => res.json())
             .then(json => {
                 batch(() => {
                     dispatch({
                         type: GET_PRODUCT_BY_CATE,
                         cateSlug,
-                        products: json.data
+                        products: json.data,
+                        product:undefined
                     })
                     dispatch(closeMessageModal());
                 })
@@ -105,7 +106,7 @@ export const getProductsByCate = (cateSlug, page) => {
     }
 }
 
-export const searchProducts = (query, page)=>{
+export const searchProducts = (query, page) => {
     return dispatch => {
         dispatch(openMessageModal(true));
         fetch(makeSearchApi(query, page))
@@ -115,7 +116,8 @@ export const searchProducts = (query, page)=>{
                     dispatch({
                         type: SEARCH_PRODUCT,
                         products: json.data,
-                        searchKey:query
+                        searchKey: query,
+                        product:undefined
                     })
                     dispatch(closeMessageModal());
                 })
@@ -124,5 +126,24 @@ export const searchProducts = (query, page)=>{
             .catch(err => {
                 console.error(err);
             })
-    } 
+    }
+}
+export const getProductDetail = (id) => {
+    return dispatch => {
+        dispatch(openMessageModal(true));
+        fetch(makeProductDetailApi(id))
+            .then((res) => res.json())
+            .then(json => {
+               batch(()=>{
+                   dispatch({
+                       type:GET_PRODUCT_DETAIL,
+                       product:json
+                   })
+                   dispatch(closeMessageModal())
+               })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 }

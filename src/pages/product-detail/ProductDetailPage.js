@@ -1,27 +1,32 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import '../product-detail/ProductDetail.css';
-import { makeProductDetailApi } from '../../common/util'
 import Detail from '../product-detail/components/Detail'
-function ProductDetailPage() {
-  const [product,setProduct]=useState([]);
+import { connect } from 'react-redux';
+import {getProductDetail} from '../../redux/actions';
+
+function ProductDetailPage({dispatch,product}) {
   const array = window.location.pathname.split('/');
   const pathName = array[2];
-  const getProductDetail = useCallback(() => {
-    fetch(makeProductDetailApi(pathName))
-      .then((res) => res.json())
-      .then(json => {
-        setProduct(json)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },[product,pathName])
-  useEffect(()=>{
-    getProductDetail()
-  },[])
-  return (
-    <Detail product={product} pathName={pathName} images={product.images}></Detail>
-    )
+  const getProductDetails = useCallback(() => {
+    dispatch(getProductDetail(pathName))
+  }, [product,dispatch])
+  useEffect(() => {
+    getProductDetails()
+  }, [])
+  {console.log(product)}
+  if (product) {
+    return (
+      <Detail product={product} pathName={pathName}></Detail>
+      )
+  }
+  else if (product===undefined) return (
+    <div></div>
+  )
 }
-
-export default ProductDetailPage;
+const mapStateToProps=state=>({
+  product:state.product
+})
+const mapDispatchToProps=dispatch=>({
+  dispatch
+})
+export default connect(mapStateToProps,mapDispatchToProps) (ProductDetailPage);

@@ -1,12 +1,12 @@
-import React, { Fragment } from'react';
+import React, { Fragment } from 'react';
 import { useState } from 'react';
-function Detail({product,pathName,images}){
-  const [imgIndex, setImgIndex] = useState(1);
-  const handleChangeImg = (index)=> {
-      setImgIndex(index);
-  }  
-    return(
-        <Fragment>
+function Detail({ product, pathName }) {
+  const [imgIndex, setImgIndex] = useState(0);
+  const handleChangeImg = (index) => {
+    setImgIndex(index);
+  }
+  return (
+    <Fragment>
       <h1>Product Detail Page {pathName}</h1>
       <div className="container">
         <div className="card">
@@ -14,10 +14,10 @@ function Detail({product,pathName,images}){
             <div className="wrapper row">
               <div className="preview col-md-6">
                 <div className="preview-pic tab-content">
-                  <div className="tab-pane active" id="pic-1"><img src={images[imgIndex]} /></div>
+                  <div className="tab-pane active" id="pic-1"><img src={'https://media3.scdn.vn' + product.images[imgIndex]} /></div>
                 </div>
                 <ul className="preview-thumbnail nav nav-tabs">
-                {images.map((item,index) => <button type="button" onClick={() => handleChangeImg(index)}><img style={{width: 50, height: 50}} alt='' key={item} src={item}/></button>)}
+                  {product.images.map((item, index) => <button type="button" onClick={() => handleChangeImg(index)}><img style={{ width: 50, height: 50 }} alt='' key={item} src={'https://media3.scdn.vn' + item} /></button>)}
                 </ul>
               </div>
               <div className="details col-md-6">
@@ -32,8 +32,7 @@ function Detail({product,pathName,images}){
                   </div>
                   <span className="review-no">41 reviews</span>
                 </div>
-                <p className="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-                <h4 className="price">current price: <span>$180</span></h4>
+                {(product.final_price===product.price)?<h4 className="price">{product.final_price}đ</h4>:<h4 className="price">{product.final_price}đ <span>{product.price}đ</span></h4>}
                 <p className="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
                 <h5 className="sizes">sizes:
                   <span className="size" data-toggle="tooltip" title="small">s</span>
@@ -55,7 +54,7 @@ function Detail({product,pathName,images}){
           </div>
         </div>
       </div>
-      </Fragment>
-    )
+    </Fragment>
+  )
 }
 export default Detail;

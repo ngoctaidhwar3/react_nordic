@@ -1,4 +1,4 @@
-import { CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
+import { CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
 
 const initialState = {
     email: localStorage.getItem('email'), // token
@@ -11,6 +11,7 @@ const initialState = {
         message: '',
         msgType: 'info'
     },
+    product:undefined,
     products: undefined,
     searchKey:undefined
 }
@@ -40,6 +41,9 @@ const reducer = (state = initialState, action)=>{
         }
         case SEARCH_PRODUCT: {
             return {...state, products: action.products,searchKey:action.searchKey}
+        }
+        case GET_PRODUCT_DETAIL:{
+            return{...state,product:action.product}
         }
         default : return state;
     }
