@@ -40,12 +40,10 @@ function Navigation(props) {
                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <ListIcon />
                             &nbsp;
-                            Danh mục
-        </a>
+                            Danh mục</a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             {cateSlugs.map(cate => <Link key={cate.slug} className="dropdown-item" to={`/${cate.slug}`}>{cate.label}</Link>)}
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">Tất cả</a>
                         </div>
                     </li>
 
@@ -85,7 +83,7 @@ function Navigation(props) {
 
 const mapStateToProps = state => ({
     email: state.email,
-    cart:state.cart
+    cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({

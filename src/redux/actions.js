@@ -1,6 +1,6 @@
 import { batch } from "react-redux";
 import { makeCateApi, makeSearchApi,makeProductDetailApi } from "../common/util";
-import { GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART } from "./types";
+import {GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART } from "./types";
 import { LOGIN_API } from "../common/constants"
 export const loginStart = () => ({
     type: LOGIN_START
@@ -151,5 +151,11 @@ export const addToCart=(cartItem)=>{
     return {
         type:ADD_TO_CART,
         cartItem
+    }
+}
+export const getTotalPrice=(totalPrice)=>{
+    return{
+        type:GET_TOTAL_PRICE,
+        totalPrice
     }
 }

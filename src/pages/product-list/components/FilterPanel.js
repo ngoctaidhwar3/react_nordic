@@ -1,7 +1,7 @@
 import React from 'react';
-import './FilterPanel.css'
-
+import './FilterPanel.css';
 function FilterPanel() {
+    
     return (<div id="accordion" className="FilterPanel">
         <div className="card">
             <div className="card-header" id="headingOne">
@@ -34,9 +34,11 @@ function FilterPanel() {
                 </h5>
             </div>
             <div id="collapseTwo" className="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div className="card-body">
-                    Thêm filter ở đây
-                </div>
+                <section class="range-slider">
+                    <span class="rangeValues"></span>
+                    <input value="5" min="0" max="15" step="0.5" type="range" />
+                    <input value="10" min="0" max="15" step="0.5" type="range" />
+                </section>
             </div>
         </div>
         <div className="card">

@@ -27,11 +27,11 @@ function ProductListPage({ dispatch, products,searchKey }) {
         handleGetProducts();
     }, [handleGetProducts,p])
     return (<div className="container ProductListPage">
-        <div class="row justify-content-md-center">
-            <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-4">
                 <FilterPanel />
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h4>{title}({products ? products.length : 0})</h4>
                 <ListPanel products={products} searchKey={searchKey} page={p ? parseInt(p) : 1} />
             </div>

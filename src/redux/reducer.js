@@ -1,4 +1,4 @@
-import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
+import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, GET_TOTAL_PRICE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
 
 const initialState = {
     email: localStorage.getItem('email'), // token
@@ -14,7 +14,8 @@ const initialState = {
     product:undefined,
     products: undefined,
     searchKey:undefined,
-    cart:[]
+    cart:[],
+    totalPrice:0
 }
 
 const reducer = (state = initialState, action)=>{
@@ -50,6 +51,9 @@ const reducer = (state = initialState, action)=>{
             const {cart}=state;
             cart.push(action.cartItem);
             return{...state,cart:[...cart]}
+        }
+        case GET_TOTAL_PRICE:{
+            return{...state,totalPrice:action.totalPrice}
         }
         default : return state;
     }

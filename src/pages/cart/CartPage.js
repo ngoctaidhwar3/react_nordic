@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../../pages/cart/CartPage.css'
+import '../../pages/cart/CartPage.css';
+import ProductCart from './components/ProductCart';
 function CartPage({ cart }) {
     const [totalPrice, setTotalPrice] = useState(0);
-    const getTotalPrice = (price) => {
-        setTotalPrice(totalPrice + price)
-        console.log(price)
+    const callBackFromChild=(dataFromChild)=>{
+        setTotalPrice(dataFromChild)
     }
     if (cart.length === 0) {
         return (
@@ -15,6 +15,7 @@ function CartPage({ cart }) {
             </div>
         )
     }
+   
     else {
         return (
             <div className="container">
@@ -32,23 +33,7 @@ function CartPage({ cart }) {
                         {
                             cart.map((item) => {
                                 return (
-                                    <tr onLoad={()=>getTotalPrice(item.product.final_price*item.quantity)} key={item.product.id}><td data-th="Product">
-                                        <div className="row">
-                                            <div className="col-sm-2 hidden-xs"><img src={'https://media3.scdn.vn' + item.product.images[0]} alt="..." className="img-responsive" /></div>
-                                            <div className="col-sm-10">
-                                                <h4 className="nomargin">{item.product.name}</h4>
-                                            </div>
-                                        </div>
-                                    </td>
-                                        <td data-th="Price">{Number(item.product.final_price).toLocaleString()}đ</td>
-                                        <td data-th="Quantity">
-                                            <input type="number" className="form-control text-center" defaultValue={item.quantity} />
-                                        </td>
-                                        <td data-th="Subtotal"  className="text-center">{Number(item.product.final_price * item.quantity).toLocaleString()}đ</td>
-                                        <td className="actions" data-th>
-                                            <button className="btn btn-info btn-sm"><i className="fa fa-refresh" /></button>
-                                            <button className="btn btn-danger btn-sm"><i className="fa fa-trash-o" /></button>
-                                        </td></tr>
+                                    <ProductCart callBackFromChild={callBackFromChild} key={item.product.id} item={item}></ProductCart>
                                 )
                             })
                         }
@@ -71,4 +56,5 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps, null)(CartPage);
+
+export default connect(mapStateToProps)(CartPage);
