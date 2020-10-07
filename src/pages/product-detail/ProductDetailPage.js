@@ -15,7 +15,7 @@ function ProductDetailPage({dispatch,product}) {
   }, [])
   if (product) {
     return (
-      <Detail key={product.product_id} product={product} pathName={pathName}></Detail>
+    <Detail key={product.product_id} product={product}></Detail>
       )
   }
   else if (product===undefined) return (
@@ -23,7 +23,7 @@ function ProductDetailPage({dispatch,product}) {
   )
 }
 const mapStateToProps=state=>({
-  product:state.product
+  product:state.product,
 })
 const mapDispatchToProps=dispatch=>({
   dispatch

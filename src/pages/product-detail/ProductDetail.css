@@ -75,7 +75,7 @@ img {
         -ms-flex-positive: 1;
             flex-grow: 1; }
   
-  .product-title, .sizes, .colors {
+  .product-title, .sizes, .colors,.quantity {
     text-transform: UPPERCASE;
     font-weight: bold; }
   
@@ -96,16 +96,20 @@ img {
     .size:first-of-type {
       margin-left: 40px; }
   
-  .color {
+  .color,.quantity {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
     height: 2em;
-    width: 2em;
     border-radius: 2px; }
     .color:first-of-type {
       margin-left: 20px; }
-  
+  .color{
+    width: 2em;
+  }
+  .quantity{
+    width: 100%;
+  }
   .add-to-cart, .like {
     background: #ff9f1a;
     padding: 1.2em 1.5em;

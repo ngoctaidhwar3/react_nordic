@@ -56,7 +56,7 @@ function Navigation(props) {
                 </form>
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/cart"><img className="icon" alt="" src="icons/cart-white.svg" /></Link>
+                        <Link className="nav-link" to="/cart"><i className="fa fa-shopping-cart"></i><span class='badge badge-warning' id='lblCartCount'>{props.cart.length}</span></Link>
                     </li>
 
 
@@ -84,7 +84,8 @@ function Navigation(props) {
 }
 
 const mapStateToProps = state => ({
-    email: state.email
+    email: state.email,
+    cart:state.cart
 })
 
 const mapDispatchToProps = dispatch => ({

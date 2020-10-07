@@ -1,19 +1,34 @@
 import React, { Fragment } from 'react';
 import { useState } from 'react';
-function Detail({ product, pathName }) {
+import { connect } from 'react-redux';
+import { addToCart } from '../../../redux/actions';
+function Detail({ product,dispatch,email }) {
   const [imgIndex, setImgIndex] = useState(0);
   const categories=product.categories;
-  const categories_name=Object.keys(categories).filter(key=>key.includes('_name'))
+  const categories_name=Object.keys(categories).filter(key=>key.includes('_name')).map(key=>[categories[key]])
   const handleChangeImg = (index) => {
     setImgIndex(index);
   }
+  const [quantity,setQuantity]=useState(1);
+  const increaseQuantity=()=>{
+    setQuantity(quantity+1)
+  }
+  const decreaseQuantity=()=>{
+    setQuantity(quantity-1)
+    if (quantity===1) {
+      setQuantity(quantity)
+    }
+  }
+  const addCart=()=>{
+    const cartItem={product:product,quantity:quantity,username:email}
+    dispatch(addToCart(cartItem))
+  }
   return (
     <Fragment>
-      {console.log(categories_name)}
-      {categories_name.map(item=>(
-        <h4>{item}</h4>
-      ))}
-      <h1>Product Detail Page {pathName}</h1>
+      {categories_name.map((item,index)=>{
+        return(
+        index!==categories_name.length-1?<span key={index}>{item} &gt; </span>:<span key={index}>{item}</span>)
+      })}
       <div className="container">
         <div className="card">
           <div className="container">
@@ -39,20 +54,21 @@ function Detail({ product, pathName }) {
                   <span className="review-no">41 reviews</span>
                 </div>
                 {(product.final_price===product.price)?<h4 className="price">{Number(product.final_price).toLocaleString()}đ</h4>:<h4 className="price">{Number(product.final_price).toLocaleString()}đ <span>{Number(product.price).toLocaleString()}đ</span></h4>}
-                <p className="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-                <h5 className="sizes">sizes:
+                <h5 className="sizes">kich co:
                   <span className="size" data-toggle="tooltip" title="small">s</span>
                   <span className="size" data-toggle="tooltip" title="medium">m</span>
                   <span className="size" data-toggle="tooltip" title="large">l</span>
                   <span className="size" data-toggle="tooltip" title="xtra large">xl</span>
                 </h5>
-                <h5 className="colors">colors:
+                <h5 className="quantity">so luong:
+                <span><button onClick={decreaseQuantity}>&#45;	</button>{quantity}<button onClick={increaseQuantity}>&#43;	</button></span></h5>
+                <h5 className="colors">mau sac:
                   <span className="color orange not-available" data-toggle="tooltip" title="Not In store" />
                   <span className="color green" />
                   <span className="color blue" />
                 </h5>
                 <div className="action">
-                  <button className="add-to-cart btn btn-default" type="button">add to cart</button>
+                  <button className="add-to-cart btn btn-default" type="button" onClick={addCart}>add to cart</button>
                   <button className="like btn btn-default" type="button"><span className="fa fa-heart" /></button>
                 </div>
               </div>
@@ -63,4 +79,10 @@ function Detail({ product, pathName }) {
     </Fragment>
   )
 }
-export default Detail;
+const mapStatetoProps=state=>({
+  email:state.email
+})
+const mapDispatchToProps=dispatch=>({
+  dispatch
+})
+export default connect (mapStatetoProps,mapDispatchToProps) (Detail);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login, loginStart } from '../../redux/actions';
+import { login } from '../../redux/actions';
 
 function LoginPage(props) {
     const [email, setEmail] = useState('');
