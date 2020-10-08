@@ -20,9 +20,6 @@ function Navigation(props) {
         event.preventDefault();
         props.dispatch(logOut());
     }
-    useEffect(()=>{
-        console.log('change')
-    },[props.cart])
     if (!props.email) return <Redirect to='/login' />;
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark Navigation">

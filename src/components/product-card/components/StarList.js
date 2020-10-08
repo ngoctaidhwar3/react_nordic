@@ -18,10 +18,10 @@ function StarList(props) {
         const result = [];
         let i = 1;
         for (; i <= stars; i++) {
-            result.push(<StarIcon />);
+            result.push(<StarIcon key={i} />);
         }
         if (i - 1 < stars)
-            result.push(<HalfStarIcon />);
+            result.push(<HalfStarIcon key={i} />);
         return result;
     }
     return (
