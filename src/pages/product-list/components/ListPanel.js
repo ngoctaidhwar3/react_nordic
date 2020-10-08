@@ -7,14 +7,14 @@ function ListPanel({ products = [],page,searchKey}) {
     const {cateSlug}=useParams()
     const findCateSlug=cateSlugs.findIndex(slug=>slug.slug===cateSlug)
     const getNextLink = ()=> {
-        if(findCateSlug===-1)
+        if(findCateSlug===-1 && cateSlug!='tim-kiem')
         return (window.location.pathname+`?q=${searchKey}`+`&p=${++page}`);
         else{
             return (window.location.pathname+ `?p=${++page}`);
         }
     }
     const getBackLink = ()=> {
-        if(findCateSlug===-1)
+        if(findCateSlug===-1 && cateSlug!='tim-kiem')
         return (window.location.pathname+`?q=${searchKey}`+`&p=${--page}`);
         else{
             return (window.location.pathname+ `?p=${--page}`);
@@ -25,7 +25,7 @@ function ListPanel({ products = [],page,searchKey}) {
         <div className="ListPanel">
             <div className="row">
                 {products.map(product =>
-                    <div className="col-md-3">
+                    <div key={product.product_id} className="col-md-3">
                         <Link to={`/detail/${product.product_id}`}><ProductCard key={product.product_id} product={product}/></Link>
                     </div>
                 )}

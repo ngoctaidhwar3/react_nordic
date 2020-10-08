@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarList from '../../../components/product-card/components/StarList'
-import { addToCart } from '../../../redux/actions';
+import { addToCart,getDuplicateProductId } from '../../../redux/actions';
 function Detail({ product, dispatch, email,cart }) {
   const [imgIndex, setImgIndex] = useState(0);
   const categories = product.categories;
@@ -28,6 +28,9 @@ function Detail({ product, dispatch, email,cart }) {
   const addCart = () => {
     const temp=cart.findIndex(item=>item.product.id===product.id)
     const cartItem = { product: product, quantity: quantity, username: email }
+    if(temp!==-1){
+      dispatch(getDuplicateProductId(temp,quantity))
+    }
     dispatch(addToCart(cartItem,temp,quantity))
   }
   return (

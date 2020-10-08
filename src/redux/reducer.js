@@ -1,4 +1,4 @@
-import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, GET_TOTAL_PRICE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT } from "./types";
+import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, GET_TOTAL_PRICE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, NEW_CART, GET_DUPLICATE_PRODUCT } from "./types";
 
 const initialState = {
     email: localStorage.getItem('email'), // token
@@ -15,10 +15,9 @@ const initialState = {
     products: undefined,
     searchKey:undefined,
     cart:[],
-    dulicateProductId:undefined,
+    dulicateProductId:-1,
     totalPrice:undefined,
     quantity:undefined,
-    quantity_name:'quantity'
 }
 
 const reducer = (state = initialState, action)=>{
@@ -50,19 +49,25 @@ const reducer = (state = initialState, action)=>{
         case GET_PRODUCT_DETAIL:{
             return{...state,product:action.product}
         }
+        case GET_DUPLICATE_PRODUCT:{
+            return {...state,dulicateProductId:action.dulicateProductId,quantity:action.quantity}
+        }
         case ADD_TO_CART:{
-            const {cart}=state;
-            // if (dulicateProductId!==-1) {
-            //     cart[dulicateProductId].quantity_name+=action.quantity
-            // }
-            // else{
+            const {cart,dulicateProductId,quantity}=state;
+            if (dulicateProductId!==-1) {
+                cart[dulicateProductId].quantity+=quantity
+            }
+            else{
                 cart.push(action.cartItem);
-            //}
+           }
             
             return{...state,cart:[...cart],dulicateProductId:action.dulicateProductId,quantity:action.quantity}
         }
         case GET_TOTAL_PRICE:{
             return{...state,totalPrice:action.totalPrice}
+        }
+        case NEW_CART:{
+            return {...state,cart:action.newCart}
         }
         default : return state;
     }

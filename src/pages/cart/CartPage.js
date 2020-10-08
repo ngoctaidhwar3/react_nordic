@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../pages/cart/CartPage.css';
 import ProductCart from './components/ProductCart';
-function CartPage({ cart }) {
+import {getNewCart} from '../../redux/actions'
+function CartPage({ cart,dispatch }) {
     const [temp, setTemp] = useState(0);
     const [cartState,setCartState]=useState(cart)
     const callBackFromChild=(dataFromChild)=>{
@@ -25,13 +26,9 @@ function CartPage({ cart }) {
           return result;
     }
     const onDelete=(itemId)=>{
-        //const items = cartState.filter(item => item.product.id !== itemId);
-        const itemss = cartState.findIndex(item => item.product.id === itemId);
-        console.log(itemss)
-        //setCartState(items)
-        const carts=cartState
-        carts.splice(itemss,1)
-        setCartState(carts)
+        const items = cartState.filter(item => item.product.id !== itemId);
+        setCartState(items)
+        dispatch(getNewCart(items))
     }
 
     if (cartState.length === 0) {
@@ -81,6 +78,8 @@ function CartPage({ cart }) {
 const mapStateToProps = state => ({
     cart: state.cart
 })
+const mapDispatchToProps=dispatch=>({
+    dispatch
+})
 
-
-export default connect(mapStateToProps,null)(CartPage);
+export default connect(mapStateToProps,mapDispatchToProps)(CartPage);
