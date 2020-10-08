@@ -1,7 +1,7 @@
 import React from 'react';
 import './FilterPanel.css';
-function FilterPanel() {
-    
+function FilterPanel({ filterPrice }) {
+
     return (<div id="accordion" className="FilterPanel">
         <div className="card">
             <div className="card-header" id="headingOne">
@@ -29,15 +29,15 @@ function FilterPanel() {
             <div className="card-header" id="headingTwo">
                 <h5 className="mb-0">
                     <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Theo giá khoảng
+                        Theo khoảng giá
           </button>
                 </h5>
             </div>
             <div id="collapseTwo" className="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
                 <section class="range-slider">
                     <span class="rangeValues"></span>
-                    <input value="5" min="0" max="15" step="0.5" type="range" />
-                    <input value="10" min="0" max="15" step="0.5" type="range" />
+                    <button onClick={() => filterPrice(200000)} type="button">Dưới 1 triệu</button>
+                    <button onClick={''} type="button">Từ 1 tới 2 triệu</button>
                 </section>
             </div>
         </div>

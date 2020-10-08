@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarList from '../../../components/product-card/components/StarList'
 import { addToCart } from '../../../redux/actions';
-function Detail({ product, dispatch, email }) {
+function Detail({ product, dispatch, email,cart }) {
   const [imgIndex, setImgIndex] = useState(0);
   const categories = product.categories;
   const categories_name = Object.keys(categories).filter(key => key.includes('_name')).map(key => [categories[key]])
@@ -26,14 +26,15 @@ function Detail({ product, dispatch, email }) {
     }
   }
   const addCart = () => {
+    const temp=cart.findIndex(item=>item.product.id===product.id)
     const cartItem = { product: product, quantity: quantity, username: email }
-    dispatch(addToCart(cartItem))
+    dispatch(addToCart(cartItem,temp,quantity))
   }
   return (
     <Fragment>
       {categories_name.map((item, index) => {
         return (
-          index !== categories_name.length - 1 ? <span key={index}><Link to={`/${item.path}`}>{item[0]}</Link> &gt; </span> : <span key={index}><Link to={`/${item.path}`}>{item[0]}</Link></span>)
+          index !== categories_name.length - 1 ? <span key={index}><Link to={`/${item.path}`}>{item[0]}</Link> &gt; </span> : <span key={index}>{item[0]}</span>)
       })}
       <div className="container">
         <div className="card">
@@ -41,7 +42,7 @@ function Detail({ product, dispatch, email }) {
             <div className="wrapper row">
               <div className="preview col-md-6">
                 <div className="preview-pic tab-content">
-                  <div className="tab-pane active" id="pic-1"><img src={'https://media3.scdn.vn' + product.images[imgIndex]} /></div>
+                  <div className="tab-pane active" id="pic-1"><img alt='' src={'https://media3.scdn.vn' + product.images[imgIndex]} /></div>
                 </div>
                 <ul className="preview-thumbnail nav nav-tabs">
                   {product.images.map((item, index) => <button key={item} type="button" onClick={() => handleChangeImg(index)}><img style={{ width: 50, height: 50 }} alt='' key={item} src={'https://media3.scdn.vn' + item} /></button>)}
@@ -80,7 +81,8 @@ function Detail({ product, dispatch, email }) {
   )
 }
 const mapStatetoProps = state => ({
-  email: state.email
+  email: state.email,
+  cart:state.cart
 })
 const mapDispatchToProps = dispatch => ({
   dispatch

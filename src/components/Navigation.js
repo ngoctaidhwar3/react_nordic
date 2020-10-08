@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { cateSlugs } from '../common/constants';
@@ -20,6 +20,9 @@ function Navigation(props) {
         event.preventDefault();
         props.dispatch(logOut());
     }
+    useEffect(()=>{
+        console.log('change')
+    },[props.cart])
     if (!props.email) return <Redirect to='/login' />;
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark Navigation">

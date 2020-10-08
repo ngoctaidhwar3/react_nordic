@@ -1,6 +1,6 @@
 import { batch } from "react-redux";
-import { makeCateApi, makeSearchApi,makeProductDetailApi } from "../common/util";
-import {GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART } from "./types";
+import { makeCateApi, makeSearchApi, makeProductDetailApi } from "../common/util";
+import { GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART } from "./types";
 import { LOGIN_API } from "../common/constants"
 export const loginStart = () => ({
     type: LOGIN_START
@@ -93,7 +93,7 @@ export const getProductsByCate = (cateSlug, page) => {
                         type: GET_PRODUCT_BY_CATE,
                         cateSlug,
                         products: json.data,
-                        product:undefined
+                        product: undefined
                     })
                     dispatch(closeMessageModal());
                 })
@@ -116,7 +116,7 @@ export const searchProducts = (query, page) => {
                         type: SEARCH_PRODUCT,
                         products: json.data,
                         searchKey: query,
-                        product:undefined
+                        product: undefined
                     })
                     dispatch(closeMessageModal());
                 })
@@ -133,13 +133,13 @@ export const getProductDetail = (id) => {
         fetch(makeProductDetailApi(id))
             .then((res) => res.json())
             .then(json => {
-               batch(()=>{
-                   dispatch({
-                       type:GET_PRODUCT_DETAIL,
-                       product:json
-                   })
-                   dispatch(closeMessageModal())
-               })
+                batch(() => {
+                    dispatch({
+                        type: GET_PRODUCT_DETAIL,
+                        product: json
+                    })
+                    dispatch(closeMessageModal())
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -147,15 +147,17 @@ export const getProductDetail = (id) => {
     }
 }
 
-export const addToCart=(cartItem)=>{
+export const addToCart = (cartItem,dulicateProductId,quantity) => {
     return {
-        type:ADD_TO_CART,
-        cartItem
+        type: ADD_TO_CART,
+        cartItem,
+        dulicateProductId,
+        quantity
     }
 }
-export const getTotalPrice=(totalPrice)=>{
-    return{
-        type:GET_TOTAL_PRICE,
+export const getTotalPrice = (totalPrice) => {
+    return {
+        type: GET_TOTAL_PRICE,
         totalPrice
     }
 }

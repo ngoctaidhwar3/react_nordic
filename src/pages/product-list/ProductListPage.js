@@ -9,10 +9,10 @@ import queryString from 'query-string';
 import './ProductListPage.css';
 
 let title = '';
-function ProductListPage({ dispatch, products,searchKey }) {
+function ProductListPage({ dispatch, products, searchKey }) {
     const { cateSlug } = useParams();
     const { q, p } = queryString.parse(window.location.search);
-    const handleGetProducts = useCallback(()=>{
+    const handleGetProducts = useCallback(() => {
         if (q) {
             title = q;
             dispatch(searchProducts(q, p))
@@ -22,14 +22,21 @@ function ProductListPage({ dispatch, products,searchKey }) {
             const cate = cateSlugs.find(item => item.slug === cateSlug);
             title = cate && cate.label;
         }
-    },[cateSlug, dispatch, p, q])
+    }, [cateSlug, dispatch, p, q])
     useEffect(() => {
         handleGetProducts();
-    }, [handleGetProducts,p])
+    }, [handleGetProducts, p])
+    const filterPrice = (price) => {
+        if (products) {
+            const arrays = Object.keys(products).map((key) => [products[key]])
+            const temp=arrays.filter(item => item[0].final_price < price)
+            return (<ListPanel products={temp} searchKey={searchKey} page={p ? parseInt(p) : 1} />)
+        }
+    }
     return (<div className="container ProductListPage">
         <div class="row">
             <div class="col-md-4">
-                <FilterPanel />
+                <FilterPanel filterPrice={filterPrice} />
             </div>
             <div class="col-md-8">
                 <h4>{title}({products ? products.length : 0})</h4>
@@ -41,7 +48,7 @@ function ProductListPage({ dispatch, products,searchKey }) {
 
 const mapStateToProps = state => ({
     products: state.products,
-    searchKey:state.searchKey
+    searchKey: state.searchKey
 })
 
 const mapDispatchToProps = dispatch => ({

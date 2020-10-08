@@ -15,7 +15,10 @@ const initialState = {
     products: undefined,
     searchKey:undefined,
     cart:[],
-    totalPrice:0
+    dulicateProductId:undefined,
+    totalPrice:undefined,
+    quantity:undefined,
+    quantity_name:'quantity'
 }
 
 const reducer = (state = initialState, action)=>{
@@ -49,8 +52,14 @@ const reducer = (state = initialState, action)=>{
         }
         case ADD_TO_CART:{
             const {cart}=state;
-            cart.push(action.cartItem);
-            return{...state,cart:[...cart]}
+            // if (dulicateProductId!==-1) {
+            //     cart[dulicateProductId].quantity_name+=action.quantity
+            // }
+            // else{
+                cart.push(action.cartItem);
+            //}
+            
+            return{...state,cart:[...cart],dulicateProductId:action.dulicateProductId,quantity:action.quantity}
         }
         case GET_TOTAL_PRICE:{
             return{...state,totalPrice:action.totalPrice}

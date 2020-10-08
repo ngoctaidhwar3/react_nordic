@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../pages/cart/CartPage.css';
 import ProductCart from './components/ProductCart';
 function CartPage({ cart }) {
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [temp, setTemp] = useState(0);
+    const [cartState,setCartState]=useState(cart)
     const callBackFromChild=(dataFromChild)=>{
-        setTotalPrice(dataFromChild)
+        setTemp(dataFromChild)
     }
-    if (cart.length === 0) {
+    useEffect(()=>{
+        getQuantityChange()
+    },[temp,cartState])
+    const getQuantityChange=()=>{
+        const cartt=cartState.findIndex(item=>item.product.id===temp.id)
+        if(cartt!==-1){
+            cartState[cartt].quantity=temp.quantity
+        }
+    }
+    const calTotalPrice=()=>{
+        const result = cartState.reduce(function(tot, arr) { 
+            return tot + (arr.quantity*arr.product.final_price);
+          },0);
+          return result;
+    }
+    const onDelete=(itemId)=>{
+        //const items = cartState.filter(item => item.product.id !== itemId);
+        const itemss = cartState.findIndex(item => item.product.id === itemId);
+        console.log(itemss)
+        //setCartState(items)
+        const carts=cartState
+        carts.splice(itemss,1)
+        setCartState(carts)
+    }
+
+    if (cartState.length === 0) {
         return (
             <div className="col-12 justify-content-center text-center"><h1>Giỏ hàng của bạn rỗng</h1>
             <div className="col-12 justify-content-center text-center"><Link to="/" className="btn btn-warning">Tiếp tục mua sắm</Link></div>
@@ -31,19 +57,19 @@ function CartPage({ cart }) {
                     </thead>
                     <tbody>
                         {
-                            cart.map((item) => {
+                            cartState.map((item) => {
                                 return (
-                                    <ProductCart callBackFromChild={callBackFromChild} key={item.product.id} item={item}></ProductCart>
+                                    <ProductCart onDelete={onDelete} callBackFromChild={callBackFromChild} key={item.product.id} item={item} cart={cart}></ProductCart>
                                 )
                             })
                         }
-
                     </tbody>
                     <tfoot>
                         <tr>
                             <td><Link to="/" className="btn btn-warning"><i className="fa fa-angle-left" />Tiếp tục mua sắm</Link></td>
                             <td colSpan={2} className="hidden-xs" />
-                            <td className="hidden-xs text-center"><strong>Thành tiền {Number(totalPrice).toLocaleString()}đ</strong></td>
+                            <td className="hidden-xs text-center">
+                                <strong>Thành tiền {Number(calTotalPrice()).toLocaleString()}đ</strong></td>
                             <td><a href="#" className="btn btn-success btn-block">Thanh toán <i className="fa fa-angle-right" /></a></td>
                         </tr>
                     </tfoot>
@@ -57,4 +83,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(CartPage);
+export default connect(mapStateToProps,null)(CartPage);
