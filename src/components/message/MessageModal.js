@@ -8,7 +8,7 @@ function MessageModal({ messageModal, dispatch }) {
     const handleClose = () => {
         dispatch(closeMessageModal());
     }
-    return (<div className="modal fade show MessageModal" style={{ display: open ? 'block' : 'none' }} id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    return (<div className="modal fade show MessageModal" style={{ display: open ? 'block' : 'none' }} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
         <div className="modal-dialog" role="document">
             <div className="modal-content">

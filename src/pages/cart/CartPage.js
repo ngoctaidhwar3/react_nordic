@@ -10,15 +10,16 @@ function CartPage({ cart,dispatch }) {
     const callBackFromChild=(dataFromChild)=>{
         setTemp(dataFromChild)
     }
-    useEffect(()=>{
-        getQuantityChange()
-    },[temp,cartState])
     const getQuantityChange=()=>{
         const cartt=cartState.findIndex(item=>item.product.id===temp.id)
         if(cartt!==-1){
             cartState[cartt].quantity=temp.quantity
         }
     }
+    useEffect(()=>{
+        getQuantityChange()
+    },[getQuantityChange,temp,cartState])
+    
     const calTotalPrice=()=>{
         const result = cartState.reduce(function(tot, arr) { 
             return tot + (arr.quantity*arr.product.final_price);

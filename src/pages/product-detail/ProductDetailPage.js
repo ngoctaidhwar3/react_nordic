@@ -9,10 +9,10 @@ function ProductDetailPage({dispatch,product}) {
   const pathName = array[2];
   const getProductDetails = useCallback(() => {
     dispatch(getProductDetail(pathName))
-  }, [product,dispatch])
+  }, [dispatch,pathName])
   useEffect(() => {
     getProductDetails()
-  }, [])
+  }, [getProductDetails])
   if (product) {
     return (
     <Detail key={product.product_id} product={product}></Detail>

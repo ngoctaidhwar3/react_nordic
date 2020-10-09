@@ -10,7 +10,7 @@ function ProductCart({ item, callBackFromChild, cart, onDelete }) {
         changedQuantityCart(quantity)
         const array = { 'id': cart[findCart].product.id, 'quantity': cart[findCart].quantity }
         callBackFromChild(array)
-    }, [quantity, cart])
+    }, [ quantity, cart])
     const increaseQuantity = () => {
         setQuantity(quantity + 1)
     }

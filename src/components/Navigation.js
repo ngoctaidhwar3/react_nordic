@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { cateSlugs } from '../common/constants';
@@ -54,7 +54,8 @@ function Navigation(props) {
                 </form>
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/cart"><i className="fa fa-shopping-cart"></i><span class='badge badge-warning' id='lblCartCount'>{props.cart.length}</span></Link>
+                        <Link className="nav-link" to="/cart"><i className="fa fa-shopping-cart"></i>
+                        {props.cart.length===0?null:<span className='badge badge-warning' id='lblCartCount'>{props.cart.length}</span>}</Link>
                     </li>
 
 

@@ -58,20 +58,20 @@ function Detail({ product, dispatch, email,cart }) {
                     <StarList stars={product.percent_star} />
                   </div>
                 </div>
+                {(product.required_options.search('kich_thuoc'))!==-1?<h5 className="sizes">kích cỡ:
+                  <button className="size" data-toggle="tooltip" title="small">s</button>
+                  <button className="size" data-toggle="tooltip" title="medium">m</button>
+                  <button className="size" data-toggle="tooltip" title="large">l</button>
+                  <button className="size" data-toggle="tooltip" title="xtra large">xl</button>
+                </h5>:null}
                 {(product.final_price === product.price) ? <h4 className="price">{Number(product.final_price).toLocaleString()}đ</h4> : <h4 className="price">{Number(product.final_price).toLocaleString()}đ <span>{Number(product.price).toLocaleString()}đ</span></h4>}
-                <h5 className="sizes">kích cỡ:
-                  <span className="size" data-toggle="tooltip" title="small">s</span>
-                  <span className="size" data-toggle="tooltip" title="medium">m</span>
-                  <span className="size" data-toggle="tooltip" title="large">l</span>
-                  <span className="size" data-toggle="tooltip" title="xtra large">xl</span>
-                </h5>
                 <h5 className="quantity">số lượng:
                 <span><button onClick={decreaseQuantity}>&#45;	</button>{quantity}<button onClick={increaseQuantity}>&#43;	</button></span></h5>
-                <h5 className="colors">màu sắc:
-                  <span className="color orange not-available" data-toggle="tooltip" title="Not In store" />
-                  <span className="color green" />
-                  <span className="color blue" />
-                </h5>
+                {(product.required_options.search('mau_sac'))!==-1?<h5 className="colors">màu sắc:
+                  <button className="color orange not-available" data-toggle="tooltip" title="Not In store"></button>
+                  <button className="color green"></button>
+                  <button className="color blue"></button>
+                </h5>:null}
                 <div className="action">
                   <button className="add-to-cart btn btn-default" type="button" onClick={addCart}>add to cart</button>
                 </div>

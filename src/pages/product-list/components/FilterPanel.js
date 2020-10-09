@@ -14,13 +14,13 @@ function FilterPanel({ filterPrice }) {
 
             <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div className="card-body">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Mua trước trả sau</label>
+                    <div className="form-check">
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                        <label className="form-check-label" htmlFor="exampleCheck1">Mua trước trả sau</label>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck2" />
-                        <label class="form-check-label" for="exampleCheck2">Mua gói siêu hời</label>
+                    <div className="form-check">
+                        <input type="checkbox" className="form-check-input" id="exampleCheck2" />
+                        <label className="form-check-label" htmlFor="exampleCheck2">Mua gói siêu hời</label>
                     </div>
                 </div>
             </div>
@@ -34,10 +34,10 @@ function FilterPanel({ filterPrice }) {
                 </h5>
             </div>
             <div id="collapseTwo" className="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                <section class="range-slider">
-                    <span class="rangeValues"></span>
-                    <button onClick={() => filterPrice(200000)} type="button">Dưới 1 triệu</button>
-                    <button onClick={''} type="button">Từ 1 tới 2 triệu</button>
+                <section className="range-slider">
+                    <span className="rangeValues"></span>
+                    <button onClick={() => filterPrice(1000000)} type="button">Dưới 1 triệu</button>
+                    <button onClick={()=>filterPrice(2000000)} type="button">Từ 1 tới 2 triệu</button>
                 </section>
             </div>
         </div>

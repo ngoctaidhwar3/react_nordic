@@ -34,11 +34,11 @@ function ProductListPage({ dispatch, products, searchKey }) {
         }
     }
     return (<div className="container ProductListPage">
-        <div class="row">
-            <div class="col-md-4">
+        <div className="row">
+            <div className="col-md-4">
                 <FilterPanel filterPrice={filterPrice} />
             </div>
-            <div class="col-md-8">
+            <div className="col-md-8">
                 <h4>{title}({products ? products.length : 0})</h4>
                 <ListPanel products={products} searchKey={searchKey} page={p ? parseInt(p) : 1} />
             </div>
