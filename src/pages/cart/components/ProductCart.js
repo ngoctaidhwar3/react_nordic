@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -6,17 +6,18 @@ function ProductCart({ item, callBackFromChild, cart, onDelete }) {
     const [quantity, setQuantity] = useState(item.quantity)
     const totalPrice = quantity * item.product.final_price
     const findCart = cart.findIndex((key) => key.product.id === item.product.id)
+    const changedQuantityCart = (value) => {
+        cart[findCart].quantity = value
+    }
     useEffect(() => {
         changedQuantityCart(quantity)
         const array = { 'id': cart[findCart].product.id, 'quantity': cart[findCart].quantity }
         callBackFromChild(array)
-    }, [ quantity, cart])
+    }, [quantity, cart])
     const increaseQuantity = () => {
         setQuantity(quantity + 1)
     }
-    const changedQuantityCart = (value) => {
-        cart[findCart].quantity = value
-    }
+    
     const decreaseQuantity = () => {
         setQuantity(quantity - 1)
         if (quantity === 1) {
