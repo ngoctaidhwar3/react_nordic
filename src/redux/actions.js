@@ -1,6 +1,6 @@
 import { batch } from "react-redux";
 import { makeCateApi, makeSearchApi, makeProductDetailApi } from "../common/util";
-import { GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART, NEW_CART, GET_DUPLICATE_PRODUCT, GET_FILTER_PRODUCTS } from "./types";
+import { GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART, NEW_CART, GET_DUPLICATE_PRODUCT, GET_FILTER_PRODUCTS, GET_INDEX_OF_PRODUCTS_CHANGE, GET_UPDATE_CART } from "./types";
 import { LOGIN_API } from "../common/constants"
 export const loginStart = () => ({
     type: LOGIN_START
@@ -161,10 +161,17 @@ export const getTotalPrice = (totalPrice) => {
         totalPrice
     }
 }
-export const getNewCart=(newCart)=>{
+export const getIndexOfProductChange=(indexOfProductChange,quantityChange)=>{
+    return{
+        type:GET_INDEX_OF_PRODUCTS_CHANGE,
+        indexOfProductChange,
+        quantityChange
+    }
+}
+export const getNewCart=(cart)=>{
     return{
         type:NEW_CART,
-        newCart
+       cart
     }
 }
 export const getDuplicateProductId=(dulicateProductId,quantity)=>{
@@ -178,5 +185,12 @@ export const getFilterProducts=(products)=>{
     return{
         type:GET_FILTER_PRODUCTS,
         products
+    }
+}
+export const getUpdateCart=(indexOfProductChange,quantityChange)=>{
+    return{
+        type:GET_UPDATE_CART,
+        indexOfProductChange,
+        quantityChange
     }
 }

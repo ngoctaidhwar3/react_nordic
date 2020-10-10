@@ -1,25 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React,{useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../pages/cart/CartPage.css';
 import ProductCart from './components/ProductCart';
 import {getNewCart} from '../../redux/actions'
 function CartPage({ cart,dispatch }) {
-    const [temp, setTemp] = useState(0);
     const [cartState,setCartState]=useState(cart)
-    const callBackFromChild=(dataFromChild)=>{
-        setTemp(dataFromChild)
-    }
-    const getQuantityChange=useCallback(()=>{
-        const cartt=cartState.findIndex(item=>item.product.id===temp.id)
-        if(cartt!==-1){
-            cartState[cartt].quantity=temp.quantity
-        }
-    },[cartState,temp.id,temp.quantity])
-    useEffect(()=>{
-        getQuantityChange()
-    },[getQuantityChange,temp,cartState])
-    
     const calTotalPrice=()=>{
         const result = cartState.reduce(function(tot, arr) { 
             return tot + (arr.quantity*arr.product.final_price);
@@ -57,7 +43,7 @@ function CartPage({ cart,dispatch }) {
                         {
                             cartState.map((item) => {
                                 return (
-                                    <ProductCart onDelete={onDelete} callBackFromChild={callBackFromChild} key={item.product.id} item={item} cart={cart}></ProductCart>
+                                    <ProductCart onDelete={onDelete}  key={item.product.id} item={item} cart={cart}></ProductCart>
                                 )
                             })
                         }
@@ -77,7 +63,8 @@ function CartPage({ cart,dispatch }) {
 }
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart,
+    quantityChanged:state.quantityChange
 })
 const mapDispatchToProps=dispatch=>({
     dispatch

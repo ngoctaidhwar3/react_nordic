@@ -1,19 +1,16 @@
 import React, {useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getIndexOfProductChange, getUpdateCart } from '../../../redux/actions';
 
-function ProductCart({ item, callBackFromChild, cart, onDelete }) {
+function ProductCart({ item, cart, onDelete,dispatch }) {
     const [quantity, setQuantity] = useState(item.quantity)
     const totalPrice = quantity * item.product.final_price
     const findCart = cart.findIndex((key) => key.product.id === item.product.id)
-    const changedQuantityCart = (value) => {
-        cart[findCart].quantity = value
-    }
-    useEffect(() => {
-        changedQuantityCart(quantity)
-        const array = { 'id': cart[findCart].product.id, 'quantity': cart[findCart].quantity }
-        callBackFromChild(array)
-    }, [quantity, cart])
+    useEffect(()=>{
+        dispatch(getIndexOfProductChange(findCart,quantity))
+        dispatch(getUpdateCart(findCart,quantity))
+    },[quantity,dispatch,findCart])
     const increaseQuantity = () => {
         setQuantity(quantity + 1)
     }
