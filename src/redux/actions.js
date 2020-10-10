@@ -1,6 +1,6 @@
 import { batch } from "react-redux";
 import { makeCateApi, makeSearchApi, makeProductDetailApi } from "../common/util";
-import { GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART, NEW_CART, GET_DUPLICATE_PRODUCT } from "./types";
+import { GET_TOTAL_PRICE, GET_PRODUCT_DETAIL, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, ADD_TO_CART, NEW_CART, GET_DUPLICATE_PRODUCT, GET_FILTER_PRODUCTS } from "./types";
 import { LOGIN_API } from "../common/constants"
 export const loginStart = () => ({
     type: LOGIN_START
@@ -173,4 +173,10 @@ export const getDuplicateProductId=(dulicateProductId,quantity)=>{
        dulicateProductId,
        quantity
    }
+}
+export const getFilterProducts=(products)=>{
+    return{
+        type:GET_FILTER_PRODUCTS,
+        products
+    }
 }

@@ -1,4 +1,4 @@
-import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, GET_TOTAL_PRICE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, NEW_CART, GET_DUPLICATE_PRODUCT } from "./types";
+import {ADD_TO_CART, CLOSE_MESSAGE_MODAL, GET_PRODUCT_BY_CATE, GET_PRODUCT_DETAIL, GET_TOTAL_PRICE, LOGIN_FAIL, LOGIN_START, LOGIN_SUCCESS, LOGOUT_SUCCESS, OPEN_MESSAGE_MODAL, SEARCH_PRODUCT, NEW_CART, GET_DUPLICATE_PRODUCT, GET_FILTER_PRODUCTS } from "./types";
 
 const initialState = {
     email: localStorage.getItem('email'), // token
@@ -45,6 +45,9 @@ const reducer = (state = initialState, action)=>{
         }
         case SEARCH_PRODUCT: {
             return {...state, products: action.products,searchKey:action.searchKey}
+        }
+        case GET_FILTER_PRODUCTS:{
+            return {...state,products:action.products}
         }
         case GET_PRODUCT_DETAIL:{
             return{...state,product:action.product}
