@@ -98,7 +98,7 @@ const reducer = (state = initialState, action) => {
     }
     case ADD_TO_CART: {
       const { cart, dulicateProductId, quantity } = state;
-      if (dulicateProductId !== -1) {
+      if (dulicateProductId > -1) {
         cart[dulicateProductId].quantity += quantity;
       } else {
         cart.push(action.cartItem);
